@@ -4,7 +4,7 @@ import math
 def monte_carlo_interseccion():
     print("--- CÁLCULO DE ÁREA POR MÉTODO DE MONTECARLO (ELIPSE E HIPÉRBOLA) ---")
     
-    # Entrada de datos por el usuario
+
     a = float(input("Ingrese el valor de a (semieje en x de la elipse): "))
     b = float(input("Ingrese el valor de b (semieje en y de la elipse): "))
     c = float(input("Ingrese el valor de c para la hipérbola: "))
@@ -14,36 +14,28 @@ def monte_carlo_interseccion():
     puntos_en_elipse = 0
     puntos_en_interseccion = 0
     
-    # Área teórica de la elipse usando la fórmula: π * a * b
     area_elipse_teorica = math.pi * a * b
     
-    # Generación de puntos aleatorios en el rectángulo delimitado por [-a, a] y [-b, b]
     for _ in range(cantidad):
         x = random.uniform(-a, a)
         y = random.uniform(-b, b)
         
-        # Condición de la elipse: x^2 / a^2 + y^2 / b^2 <= 1
         es_elipse = (x**2 / a**2) + (y**2 / b**2) <= 1
         
         if es_elipse:
             puntos_en_elipse += 1
             
-            # Condición de la hipérbola: x^2 / c^2 - y^2 / d^2 >= 1
-            # Nota: La gráfica muestra que la intersección ocurre en las regiones exteriores de la hipérbola 
-            # (hacia los lados izquierdo y derecho donde |x| >= c).
             es_hiperbola = (x**2 / c**2) - (y**2 / d**2) >= 1
             
             if es_hiperbola:
                 puntos_en_interseccion += 1
 
-    # Cálculo de la proporción y estimación del área de intersección
     if puntos_en_elipse > 0:
         proporcion = puntos_en_interseccion / puntos_en_elipse
         area_aproximada_interseccion = proporcion * area_elipse_teorica
     else:
         area_aproximada_interseccion = 0.0
 
-    # Resultados solicitados
     print("\n--- RESULTADOS ---")
     print(f"1. Puntos aleatorios que cayeron dentro de la elipse: {puntos_en_elipse}")
     print(f"2. Puntos aleatorios que cayeron en la intersección (elipse e hipérbola): {puntos_en_interseccion}")
